@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <head  th:replace="head">
+        <title>Expense Note Application</title>
+
+    </head>
+    <body>
+        <!-- Start of the navigation bar -->
+        <div sec:authorize="isAuthenticated()">
+
+            <div sec:authorize="hasRole('ROLE_USER')">
+                <header th:replace="navBar">
+                </header>
+            </div>
+
+            <div sec:authorize="hasRole('ROLE_MANAGER')">
+                <header th:replace="navBar_Manager">
+                </header>
+            </div>
+            
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <header th:replace="navBar_Admin">
+                </header>
+            </div>
+        </div>
+        <!-- End of the navigation bar -->
+        <div class="container">
+
+            <div class="page-header">
+                <h1>Statitics View</h1>
+            </div>
+            <br/>
+            <br/>
+            <div th:if="${user}" class="row">
+                <!--<h4 class="text-left">Mr/Mrs/Ms: <span th:text="${user.userName}"></span></h4><br/>--> 
+                <!--start of the data table -->
+                <table id="example" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
+                    <center>
+                        <caption>
+                            <h4>Press the view link to see the User Expenses</h4>
+                        </caption>
+                    </center>    
+                    <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th class="text-center">Names</th>
+                            <th class="text-center">Emails</th>
+                            <th class="text-center">Expenses</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th class="text-center">Names</th>
+                            <th class="text-center">Emails</th>
+                            <th class="text-center">Expenses</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr th:each="user, iterStat : ${users}">
+                            <td align="center" th:text="'' + ${iterStat.index + 1}"></td>
+                            <td align="center" th:text="'' + ${user.userName}"></td>
+                            <td align="center" th:text="'' + ${user.email}"></td>
+                            <td align="center" >
+                                <span class="badge" th:text="${list[iterStat.index]}" ></span>
+                            </td>
+                        </tr>
+                    </tbody>    
+                </table> 
+                <!--End of the data table--> 
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="text-center">
+                            <a href="/chart.htm/bestSubmitterGraph" class="btn btn-primary" id="singlebutton"> 
+                                Chart 
+                                <span class="glyphicon glyphicon-stats"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>   
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+        <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+        th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+        <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script> 
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#example').DataTable();
+            });
+        </script>
+    </body>
+</html>

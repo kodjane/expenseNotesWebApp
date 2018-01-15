@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+   
+        <table border = "1">
+                  <center>
+                        <caption>
+                            <h4>Rate Details</h4>
+                        </caption>
+                  </center>    
+        <thead>
+            <tr>
+                <th>Base</th>
+                <th>Date</th>
+                <th>Values</th>
+            </tr>
+        </thead>
+        <tbody>
+             <tr th:each= "r : ${currenciesList.rates} ">
+                    <td th:text="${r.name}" ></td>
+                    <td th:text="${spring.date}" ></td> 
+                    <td th:text="${r.value}" ></td>       </tr>                          
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <head  th:replace="head">
+        <title>Expense Note Application</title>
+
+    </head>
+    <body>
+        <!-- Start of the navigation bar -->
+        <header th:replace="navBar">
+        </header>
+        <!-- End of the navigation bar -->
+        <div class="container">
+
+            <div class="page-header">
+                <h1 sec:authorize="hasRole('ROLE_MANAGER')"><span th:text="${user.userName}"></span>'s Detail of the Expense</h1>
+                <h1 sec:authorize="hasRole('ROLE_USER')">Detail of Your Expense</h1>
+            </div>
+            <br/>
+            <br/>
+            <div th:if="${user}" class="row">
+                <h4 class="text-left">Mr/Mrs/Ms: <span th:text="${user.userName}"></span></h4><br/> 
+                <!--start of the data table--> 
+                <table id="example" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
+                    <center>
+                        <caption>
+                            <h4>Press the button below to print your Expense</h4>
+                        </caption>
+                    </center>    
+                    <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th class="text-center">Currency</th>
+                            <th class="text-center">Date</th>
+                            <th class="text-center">Amount</th>
+                            <th class="text-center">Expense Type</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th class="text-center">Currency</th>
+                            <th class="text-center">Date</th>
+                            <th class="text-center">Amount</th>
+                            <th class="text-center">Expense Type</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr th:each="expenseLine, iterStat : ${expenseDetails}">
+                            <td align="center" th:text="'' + ${iterStat.index + 1}"></td>
+                            <td align="center" th:text="'' + ${expenseLine.currency}"></td>
+                            <td align="center" th:text="'' + ${expenseLine.date}"></td>
+                            <td align="center" th:text="'' + ${expenseLine.amount} + ' €'"></td>
+                            <td align="center" th:text="'' + ${expenseLine.expenseType.name}"></td>
+                        </tr>
+                    </tbody>        
+                </table> 
+                <div>
+                    <input type="text" th:value="${totalOfSelectedExpense + ' €'}" class="pull-right btn btn-info btn-sm col-md-1 col-sm-1 col-xs-1 col-lg-1" disabled="disabled"/>
+                    <h2><label class="pull-right" for="TotalAmount">Total:&nbsp;</label></h2>
+                </div>
+                <br/>
+                <br/>
+                <div th:if="${printPage} == Yes">
+                    <a href="javascript: if(window.print) window.print()" type="text" class="pull-right btn btn-success btn-sm col-md-1 col-sm-1 col-xs-1 col-lg-1">
+                        Print &nbsp;
+                        <span class="glyphicon glyphicon-print"></span>
+                    </a>
+                </div>
+                <!--start of the data table -->
+
+            </div> 
+        </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+        <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+        th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+        <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script> 
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#example').DataTable();
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head  th:replace="head">
+    </head>
+    <body>
+        <div sec:authorize="isAuthenticated()">
+
+            <div sec:authorize="hasRole('ROLE_USER')">
+                <header th:replace="navBar">
+                </header>
+            </div>
+
+            <div sec:authorize="hasRole('ROLE_MANAGER')">
+                <header th:replace="navBar_Manager">
+                </header>
+            </div>
+            
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <header th:replace="navBar_Admin">
+                </header>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-4">
+                    <form th:action="@{'/manager/users/expenseList/detail/manager/users/expense/modify/' + expense.id}" th:object="${expense}" method="post">
+
+                        <div class="container">
+                            <div class="row">
+                                <label for="success" class="btn btn-info">
+                                    Success 
+                                    <input type="checkbox" id="success" name="theStatus" class="badgebox" />
+                                    <span class="badge">&check;</span>
+                                </label>
+                                <input name="_status" type="hidden" value="yes" />
+                                <button type="submit" class="btn btn-success">
+                                    approve &nbsp;
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

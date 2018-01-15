@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!-- Start of the navigation bar-->
+<body>
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container"> 
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> 
+                </button>
+                <img src="../static/images/logoMSF.png" alt="Image" id="logo" style="margin-top: 2px;padding-right: 15px;max-height:45px;max-width:200px" class="img-responsive pull-left"
+                     th:src="@{images/logoMSF.png}"/>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li ><a href="/" th:href="@{/}" class="navbar-brand">Expense Note</a></li>
+                    <li >
+                        <a href="/addExpenseline" th:href="@{/addExpenseline}">Add</a>
+
+                    </li>
+                    <li >
+                        <a href="/expenseList">Own View</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User Statistics
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/theMostUsedCurrency">Most used Currencies</a></li>
+                            <li><a href="/theMostUsedExpenseType">Most used ExpenseType</a></li>
+                        </ul>
+                    </li> 
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Line Manager
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ><a href="/usersList">Wide View</a></li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manager Statistics<b class="caret"></b></a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a href="/manager/statistics/bestSubmitter">Best Submitter</a></li>
+                                    <li><a href="/highestExpenseByUsers">Highest Expense by Submitter</a></li>
+                                    <li><a href="/bestExpenseType">Best ExpenseType</a></li>
+                                    <li><a href="/bestExpense">Best Expense</a></li>
+                                    <!--<li class="divider"></li>-->
+<!--                                    <li><a href="#">Separated link [Menu 2.2]</a></li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown [Menu 2.2] <b class="caret"></b></a>
+
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown [Menu 2.3] <b class="caret"></b></a>
+
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">Action [Menu 2.4]</a></li>
+                                                    <li><a href="#">Another action [Menu 2.4]</a></li>
+                                                    <li><a href="#">Something else here [Menu 2.4]</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">Separated link [Menu 2.4]</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">One more separated link [Menu 2.4]</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>-->
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>              
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-user"></span> 
+                            <strong>Account</strong>
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="navbar-login">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <p class="text-center">
+                                                <span class="glyphicon glyphicon-user icon-size"></span>
+                                            </p>
+                                        </div>
+                                        <div th:if="${user}" class="col-lg-8">
+                                            <p class="text-left"><strong th:text="${user.userName}" ></strong></p>
+                                            <p th:text="${user.email}" class="text-left small" ></p>
+<!--                                            <p class="text-left">
+                                                <a href="#" class="btn btn-primary btn-block btn-sm">Update Account</a>
+                                            </p>-->
+                                        </div>
+                                        <!--<div class="col-lg-8">
+                                            <p class="text-left"><strong >your name</strong></p>
+                                            <p class="text-left small" > your email </p>
+                                            <p class="text-left">
+                                                <a href="#" class="btn btn-primary btn-block btn-sm">Update Account</a>
+                                            </p>
+                                        </div>-->
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <div class="navbar-login navbar-login-session">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <p>
+                                                <a href="/logout" th:href="@{/logout}" class="btn btn-danger btn-block">Logout</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- End of the navigation bar-->
+    <br/>
+    <br/>
+    <br/>
+    <script>
+        $(document).ready(function () {
+            $('.navbar a.dropdown-toggle').on('click', function (e) {
+                var $el = $(this);
+                var $parent = $(this).offsetParent(".dropdown-menu");
+                $(this).parent("li").toggleClass('open');
+
+                if (!$parent.parent().hasClass('nav')) {
+                    $el.next().css({"top": $el[0].offsetTop, "left": $parent.outerWidth() - 4});
+                }
+
+                $('.nav li.open').not($(this).parents("li")).removeClass("open");
+
+                return false;
+            });
+        });
+    </script>
+</body>

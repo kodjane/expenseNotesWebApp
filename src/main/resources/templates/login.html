@@ -1,0 +1,56 @@
+<html xmlns:th="http://www.thymeleaf.org">
+   
+<head  th:replace="head">
+</head>
+<header>
+    <div class="row"> 
+             <div class="col-lg-8 col-lg-offset-4"> 
+                <div class="navbar navbar-inverse navbar-fixed-top">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/" th:href="@{/}">Accueil</a>
+                    </div>
+                </div>
+             </div>
+        
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <div class="row">
+        <div class="col-lg-12"> 
+        <img src="../static/images/msfazg.png"  th:src="@{images/msfazg.png}"
+            class="img-responsive center-block" />
+        </div>   
+    </div>    
+</header>
+
+<body>
+     
+     <div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <h1 class="text-center login-title">Sign in to continue</h1>
+            <div class="account-wall">
+                <img class="profile-img" src="../static/images/account.png" th:src="@{images/account.png}"/>
+                
+                <h3 class="alert-danger text-center" th:if="${param.error != null}"> wrong username or password</h3>
+                <!--<h3 class="alert-success text-center" th:unless="${param.logout != null}"> You have been logged out</h3>-->
+                
+                <form class="form-signin" th:action="@{/login}" method="post" >
+                
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" />
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" />
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">
+                        <span class="glyphicon glyphicon-ok-sign"></span>
+                        Sign in
+                    </button>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                </form>
+            </div>
+            <a href="/inscription" th:href="@{/inscription}" class="text-center new-account">Sign up now</a>
+        </div>
+    </div>   
+    </div>
+
+</body>
+</html>

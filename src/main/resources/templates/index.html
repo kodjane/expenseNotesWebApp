@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head  th:replace="head">
+        <title>Expense Note Application</title>
+    </head>
+
+    <body>
+        <!-- Start of the navigation bar -->
+        <!--                <header th:replace="navBar"> 
+                        </header>-->
+        <!--test-->
+        <div sec:authorize="isAuthenticated()">
+
+            <div sec:authorize="hasRole('ROLE_USER')">
+                <header th:replace="navBar">
+                </header>
+            </div>
+
+            <div sec:authorize="hasRole('ROLE_MANAGER')">
+                <header th:replace="navBar_Manager">
+                </header>
+            </div>
+            
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <header th:replace="navBar_Admin">
+                </header>
+            </div>
+        </div>
+        <div sec:authorize="isAnonymous()">
+            <header th:replace="navBar"> 
+            </header>
+        </div>
+
+
+        <!-- End of the navigation bar -->
+        <div class="container">
+            <div class="jumbotron">
+                <img sec:authorize="isAnonymous()" src="../static/images/centreAfrik.png" width="1000"
+                     th:src="@{images/centreAfrik.png}"/>
+                <div sec:authorize="hasRole('ROLE_USER')">
+                    <img src="../static/images/NotATarget.jpg" width="1000"
+                         th:src="@{images/NotATarget.jpg}"/>
+                </div>
+                <div sec:authorize="hasRole('ROLE_MANAGER')">
+                    <img src="../static/images/even-war-has-rules.jpg" width="1000"
+                         th:src="@{images/even-war-has-rules.jpg}"/>
+                </div>
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
+                    <img src="../static/images/even-war-has-rules.jpg" width="1000"
+                         th:src="@{images/even-war-has-rules.jpg}"/>
+                </div>
+                <h1 sec:authorize="isAnonymous()" >Hello</h1>
+                <h2 sec:authorize="isAnonymous()" >Welcome into Expense Note Application</h2>
+            </div>
+            <!--            <form action="/login">
+                            <p sec:authorize="isAnonymous()">
+                                <a href="/login" class="btn btn-success btn-lg">
+                                    <span class="glyphicon glyphicon-user"></span> Log in 
+                                </a>
+                            </p>
+                        </form>-->
+        </div>
+
+    </body>
+</html>

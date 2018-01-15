@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <head  th:replace="head">
+        <title>Expense Note Application</title>
+
+    </head>
+    <body>
+        <!-- Start of the navigation bar -->
+        <header th:replace="navBar">
+        </header>
+        <!-- End of the navigation bar -->
+
+        <div class="container ">
+            <div class="page-header">
+                <h1>Add an Expense</h1>      
+            </div>
+            <form th:action="@{/addExpense}" th:object="${expenseline}" method="post" role="form" class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-4"><label>Submitter</label><input type="text" class="form-control" placeholder="Firstname And Lastname"/></div>
+                    <div class="col-sm-4"><label>Approver</label><input type="text" class="form-control" placeholder="Lastname"/></div>
+                    <div class="col-sm-4"><label>Approval Date</label><input class="form-control" 
+                                                                             th:field="*{date}" 
+                                                                             th:value="${expenseline.date}" 
+                                                                             type="text" id="datepicker"
+                                                                             placeholder="Type in the field and choose a date"
+                                                                             /></div>
+                </div>
+                <hr>
+
+                </hr>
+                <div class="row clearfix">
+                    <div class="col-md-12 table-responsive">
+                        <table class="table table-bordered table-hover table-sortable" id="tab_logic">
+                            <thead>
+                                <tr >
+                                    <th class="text-center">
+                                        Currency
+                                    </th>
+                                    <th class="text-center">
+                                        Amount
+                                    </th>
+                                    <th class="text-center">
+                                        Expense Type
+                                    </th>
+                                    <th class="text-center">
+                                        Date
+                                    </th>
+                                    <th class="text-center" style="border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id='addr0' data-id="0" class="hidden">
+                                    <td data-name="Currency">
+                                        <select class="form-control"  id="currency" name="currency">
+                                            <option th:each="rate : ${currency.rates}" 
+
+                                                    th:text="${rate.name}">
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td data-name="Amount">
+                                        <input type="number" th:field="*{amount}" min="0" step="any" class="form-control" placeholder="Enter your amount" />
+                                    </td>
+                                    <td data-name="Expense Type">
+                                        <select class="form-control" th:field="*{expenseType.id}" id="expenseType" name="Expense Type">
+                                            <option th:each="expenseType : ${expenseTypeList}"
+                                                    th:value="${expenseType.id}"
+                                                    th:text="${expenseType.name}"></option>
+                                        </select>
+                                    </td>
+                                    <td data-name="Date">
+                                        <div>
+                                            <input class="form-control" 
+                                                   th:field="*{date}" 
+                                                   th:value="${expenseline.date}" 
+                                                   type="date" id="datepicker2"
+                                                   placeholder="Type in the field and choose a date"
+                                                   />
+                                        </div>
+                                    </td>
+                                    <td data-name="del">
+                                        <button name="del0" class='btn btn-danger glyphicon glyphicon-remove row-remove'></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <a id="add_row" class="btn btn-default pull-right">Add Row</a>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-info btn-sm col-md-2 col-sm-2 col-xs-2 col-lg-2">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        Add
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/tableStyle.js"></script>
+        <script type="text/javascript" src="js/jquery.datetimepicker.full.js"></script>
+        <script type="text/javascript" src="js/jquery.datetimepicker.full.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+        <script>
+            $(function () {
+                $('#datepicker').datepicker();
+                $('#datepicker2').datepicker();
+            });
+        </script>
+        <!--                <script>
+                            $('#datetimepicker').datetimepicker();
+                        </script>  -->
+    </body>
+</html>
