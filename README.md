@@ -1,5 +1,7 @@
 # expenseNotesWebApp
 
-The corresponding data Base file is expenseNoteDataBase folder.
+This project is a SpringBoot Web Application using Maven.
 
-Pick it and import it into your own data Base 
+The corresponding dataBase sql file is in expenseNoteDataBase's folder.
+
+Pick it and import it into your own local database. 
