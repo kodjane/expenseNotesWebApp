@@ -1,6 +1,6 @@
-# Aimé Kodjané
+# Aimé Dieudonné KODJANE
 
-# expenseNotesWebApp
+# expenseNotes Web Application
 
 This project is a SpringBoot Web Application using Maven.
 
